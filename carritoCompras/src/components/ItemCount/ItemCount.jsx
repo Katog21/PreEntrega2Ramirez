@@ -18,9 +18,9 @@ const ItemCount = ({initial = 1, stock, onAdd }) => {
     return (
         <article>
             <h3>{count}</h3>
-            <button onClick={decrement} class= "button is-danger"> - </button>
-            <button onClick={() => onAdd(count)} class= "button is-success">agregar</button>
-            <button onClick={increment} class= "button is-info"> + </button>
+            <button onClick={decrement} class= "btn btn-danger"> - </button>
+            <button onClick={() => onAdd(count)} class= "btn btn-success">agregar</button>
+            <button onClick={increment} class= "btn btn-primary"> + </button>
         </article>
     )
 }
