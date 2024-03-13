@@ -7,7 +7,7 @@ const ItemDetailContainer = () => {
     const [product, setProduct] = useState(null)
     
     const {itemId} = useParams()
-    
+
     useEffect(() => {
         getProductById(itemId)
             .then(result => {
@@ -16,7 +16,7 @@ const ItemDetailContainer = () => {
     }, [itemId])
 
     return (
-        <main> 
+        <main class="card"> 
             <h2>Datalle de producto</h2>
         <ItemDetail {...product} />
         </main>
