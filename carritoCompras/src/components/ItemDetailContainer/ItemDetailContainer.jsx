@@ -1,25 +1,40 @@
 import { useState, useEffect } from "react"
-import { getProductById } from "../../asyncMock"
-import ItemDetail from "../ItemDetail/ItemDetail"
+// import { getProductById } from "../../asyncMock"
 import { useParams } from "react-router-dom"
+import ItemDetail from "../ItemDetail/ItemDetail"
+import { getDoc, doc } from "firebase/firestore"
+import { db } from "../../services/firebase/firebaseConfig"
+
 
 const ItemDetailContainer = () => {
     const [product, setProduct] = useState(null)
-    
-    const {itemId} = useParams()
+
+    const { itemId } = useParams()
 
     useEffect(() => {
-        getProductById(itemId)
-            .then(result => {
-                setProduct(result)
-        })
+        const productDoc = doc(db, 'products', itemId)
+
+        getDoc(productDoc)
+            .then(queryDocumentSnapshot => {
+                const data = queryDocumentSnapshot.data()
+                const productAdapted = { id: queryDocumentSnapshot.id, ...data}
+
+                setProduct(productAdapted)
+            })
+            .catch()
+
+        // getProductById(itemId)
+        //     .then(response => {
+        //         setProduct(response)
+        //     })
     }, [itemId])
 
+
     return (
-        <main class="card"> 
-            <h2>Datalle de producto</h2>
-        <ItemDetail {...product} />
-        </main>
+        <div style={{ background: 'pink'}}>
+            <h1>Detalle de producto</h1>
+            <ItemDetail {...product} />
+        </div>
     )
 }
 
